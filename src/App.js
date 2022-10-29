@@ -23,7 +23,7 @@ function Todo({ todo, index, markTodo, removeTodo }) {
 }
 
 function FormTodo({ addTodo }) {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,6 +62,11 @@ function App() {
     const newTodos = [...todos, { text }];
     setTodos(newTodos);
   };
+
+  function deletAllTask(){
+    console.log("Delete All ")
+    setTodos([]);
+  }
 
   const markTodo = (index) => {
     const newTodos = [...todos];
@@ -104,7 +109,7 @@ function App() {
             ))}
           </div>
           <div className="d-flex justify-content-center">
-          <button className="btn btn-outline-danger m-5 ">Delete All</button>
+          <button onClick={deletAllTask} className="btn btn-outline-danger m-5 ">Delete All</button>
           </div>
         </div>
       </div>
