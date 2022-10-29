@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { Button, Card, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { DarkModeToggle } from "react-dark-mode-toggle-2";
 
 function Todo({ todo, index, markTodo, removeTodo }) {
   return (
@@ -32,21 +33,18 @@ function FormTodo({ addTodo }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form className="d-flex justify-content-center " onSubmit={handleSubmit}>
       <Form.Group>
-        <Form.Label>
-          <b>Add Todo</b>
-        </Form.Label>
         <Form.Control
           type="text"
-          className="input"
+          className="input mr-5"
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          placeholder="Add new todo"
+          placeholder="Enter Your Task"
         />
       </Form.Group>
-      <Button variant="primary mb-3" type="submit">
-        Submit
+      <Button variant="primary ml-3 mb-3" type="submit">
+        Add
       </Button>
     </Form>
   );
@@ -77,25 +75,37 @@ function App() {
     setTodos(newTodos);
   };
 
+  const [isDarkMode, setIsDarkMode] = useState(false);
   return (
     <div className="app">
-      <div className="container">
-        <h1 className="text-center mb-4">Todo List</h1>
-        <FormTodo addTodo={addTodo} />
-        <div>
-          {todos.map((todo, index) => (
-            <Card>
-              <Card.Body>
-                <Todo
-                  key={index}
-                  index={index}
-                  todo={todo}
-                  markTodo={markTodo}
-                  removeTodo={removeTodo}
-                />
-              </Card.Body>
-            </Card>
-          ))}
+      <DarkModeToggle
+        className="d-flex ml-auto "
+        onChange={setIsDarkMode}
+        isDarkMode={isDarkMode}
+        size={65}
+      />
+      <div className="container d-flex justify-content-center ">
+        <div className="col-4">
+          <h1 className="text-center headingText mb-4">Todo List</h1>
+          <FormTodo addTodo={addTodo} />
+          <div>
+            {todos.map((todo, index) => (
+              <Card>
+                <Card.Body>
+                  <Todo
+                    key={index}
+                    index={index}
+                    todo={todo}
+                    markTodo={markTodo}
+                    removeTodo={removeTodo}
+                  />
+                </Card.Body>
+              </Card>
+            ))}
+          </div>
+          <div className="d-flex justify-content-center">
+          <button className="btn btn-outline-danger m-5 ">Delete All</button>
+          </div>
         </div>
       </div>
     </div>
